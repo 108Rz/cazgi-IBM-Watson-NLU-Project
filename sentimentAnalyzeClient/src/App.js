@@ -59,16 +59,17 @@ class App extends React.Component {
       })});
   }
 
-    fetch(url, {
-        method: "GET",
-        headers: {
-          'Content-Type': 'application/json;charset=UTF-8',
-          'Accept': 'application/json'
-        }, mode: 'cors', cache: 'default'
-      }).then((response) =>
-      response.json()).then((data)=>{
+  sendForEmotionAnalysis = () => {
+
+    this.setState({sentiment:false});
+    let url = ".";
+    let mode = this.state.mode
+    url = url+"/" + mode + "/emotion?"+ mode + "="+document.getElementById("textinput").value;
+
+    fetch(url).then((response)=>{
+      response.json().then((data)=>{
       this.setState({sentimentOutput:<EmotionTable emotions={data}/>});
-  });
+  })})  ;
   }
 
   render() {
